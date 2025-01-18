@@ -1,77 +1,73 @@
 <template>
   <v-container fluid class="pa-0">
-    <!-- Hero Section -->
     <v-row no-gutters class="hero-section">
       <v-col cols="12" md="6" class="d-flex flex-column justify-center pa-16">
-        <h1 class="text-h2 font-weight-bold">
+        <h1 class="text-h2 font-weight-bold roboto">
           <span>PEQUENAS AÇÕES</span><br>
           <span class="text-success">GRANDES</span>
-          <span>IMPACTOS</span>
+          <span> IMPACTOS</span>
         </h1>
-        <p class="text-subtitle-1 mt-4">
+        <p class="text-subtitle-1 mt-4 roboto">
           ADOTE A COLETA SELETIVA EM SUA ROTINA.
+        </p>
+        <p class="text-body-2 mt-2 roboto">
+          ENCONTRE INFORMAÇÕES, DICAS E FERRAMENTAS PARA<br>
+          FACILITAR A COLETA SELETIVA EM SEU DIA A DIA.
         </p>
         <div class="mt-6">
           <v-btn
             color="success"
-            size="x-large"
-            class="me-4"
+            class="me-4 text-none roboto"
             rounded="pill"
+            to="/coleta-seletiva"
           >
-            SAIBA MAIS
+            Coleta Seletiva
           </v-btn>
           <v-btn
-            variant="outlined"
             color="success"
-            size="x-large"
+            class="text-none roboto"
             rounded="pill"
+            variant="outlined"
+            to="/pontos-coleta"
           >
-            PONTOS DE COLETA
+            Pontos de Coleta
           </v-btn>
         </div>
       </v-col>
       <v-col cols="12" md="6" class="hero-image">
         <v-img
-          src="@/assets/images/globe-illustration.png"
-          class="rounded-lg"
-          cover
+          src="/images/planeta_cidade.png"
+          class="rounded-md"
+          max-width="80%"
+          contain
         ></v-img>
       </v-col>
     </v-row>
 
-    <!-- Parallax Section -->
     <v-parallax
-      src="@/assets/images/forest-background.jpg"
-      height="600"
+      src="/images/floresta_parallax.png"
+      class="parallax-section"
     >
-      <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="6">
-          <v-card
-            class="pa-6 text-center"
-            color="background"
-            elevation="8"
-          >
-            <v-img
-              src="@/assets/images/eco-icon.svg"
-              height="100"
-              contain
-              class="mb-4"
-            ></v-img>
-            <p class="text-body-1">
-              É ATRAVÉS DE PEQUENAS AÇÕES COMO TRABALHAR, ESTUDAR OU ATÉ A SUA INICIATIVA DE ENTREGAR 
-              RECICLÁVEIS, QUE VOCÊ FAZ A DIFERENÇA E PERMITE QUE MAIS PESSOAS CONTINUEM SEUS ESTUDOS, 
-              TENHAM DIGNIDADE E SEJAM CONTEMPLADAS
-            </p>
-          </v-card>
-        </v-col>
-      </v-row>
     </v-parallax>
+
+    <v-row no-gutters class="project-section pa-16">
+      <v-col cols="12" md="4" class="d-flex justify-center">
+        <v-img
+          src="/images/gaia_segurando_terra.png"
+          max-width="200"
+          contain
+        ></v-img>
+      </v-col>
+      <v-col cols="12" md="8" class="d-flex align-center">
+        <p class="text-body-1 roboto">
+          O PROJETO "QUANTO AMOR VOCÊ TEM PARA DAR", FUNDADO EM 2016, É UMA INICIATIVA DE EXTENSÃO 
+          SOCIOAMBIENTAL DA UTFPR DE CORNÉLIO PROCÓPIO, QUE VISA COMBINAR SUSTENTABILIDADE, INCLUSÃO 
+          SOCIAL E AÇÕES COMUNITÁRIAS
+        </p>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
-
-<script setup>
-// Composition API setup
-</script>
 
 <style scoped>
 .hero-section {
@@ -84,9 +80,30 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+
+  margin: 0 auto;
+  aspect-ratio: 1/1;
+}
+    
+.parallax-section {
+  height: 600px !important;
 }
 
-.text-success {
-  color: #4CAF50 !important;
+.parallax-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-section {
+  background-color: #E8F5E9;
+}
+
+.roboto {
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 500;
 }
 </style>

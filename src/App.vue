@@ -8,7 +8,7 @@
           <v-btn variant="text" to="/coleta-seletiva" class="text-uppercase">Coleta Seletiva</v-btn>
           <v-btn variant="text" to="/pontos-coleta" class="text-uppercase">Pontos de Coleta</v-btn>
           <v-btn variant="text" to="/blog" class="text-uppercase">Blog</v-btn>
-          <v-img src="@/assets/logo.svg" max-width="50" class="ml-4"></v-img>
+          <v-img src="/images/logo.png" max-width="50" class="ml-4"></v-img>
         </div>
       </v-container>
     </v-app-bar>
@@ -20,8 +20,8 @@
     <v-footer class="bg-background">
       <v-container>
         <v-row>
-          <v-col cols="4">
-            <v-img src="@/assets/logo-colorida.svg" max-width="150" alt="Quanto Amor"></v-img>
+          <v-col cols="3">
+            <v-img src="/images/quantoamor_logo_1.png" max-width="250" class="ml-5"></v-img>
           </v-col>
           <v-col cols="4">
             <h3>Como nos encontrar</h3>
@@ -31,7 +31,7 @@
               <v-list-item prepend-icon="mdi-map-marker">Visite os coletores</v-list-item>
             </v-list>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="5">
             <h3>Área Restrita</h3>
             <v-text-field label="Nome do Usuário" variant="outlined" density="compact"></v-text-field>
             <v-text-field label="Senha" type="password" variant="outlined" density="compact"></v-text-field>
