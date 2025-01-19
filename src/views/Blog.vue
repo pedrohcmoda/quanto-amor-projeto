@@ -1,32 +1,35 @@
 <template>
   <v-container fluid class="pa-16 bg-background">
-    <h1 class="text-h2 font-weight-bold roboto"></h1>
-    <v-row>
-      <v-col 
-        v-for="article in paginatedArticles" 
-        :key="article.title"
-        cols="12"
-        sm="6"
-        md="4"
-        lg="3"
-      >
-        <blog-article :article="article" />
-      </v-col>
-    </v-row>
+    <v-row justify="center">
+      <v-col cols="12" md="10" lg="8">
+        <v-row>
+          <v-col 
+            v-for="article in paginatedArticles" 
+            :key="article.title"
+            cols="12"
+            sm="12"
+            md="6"
+            class="px-4"
+          >
+            <blog-article :article="article" />
+          </v-col>
+        </v-row>
 
-    <v-row class="mt-8">
-      <v-col class="d-flex justify-center">
-        <v-pagination
-          v-model="currentPage"
-          :length="totalPages"
-          :total-visible="7"
-          rounded="circle"
-        ></v-pagination>
+        <v-row class="mt-16">
+          <v-col class="d-flex justify-center">
+            <v-pagination
+              v-model="currentPage"
+              :length="totalPages"
+              :total-visible="7"
+              rounded="circle"
+              color="success"
+            ></v-pagination>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
 </template>
-
 <script setup>
 import { ref, computed } from 'vue'
 import BlogArticle from '@/components/BlogArtigo.vue'
@@ -184,7 +187,7 @@ const articles = ref([
 ])
 
 
-const itemsPerPage = 20
+const itemsPerPage = 10
 const currentPage = ref(1)
 
 const totalPages = computed(() => Math.ceil(articles.value.length / itemsPerPage))
@@ -198,5 +201,10 @@ const paginatedArticles = computed(() => {
 <style scoped>
 .bg-background {
   background-color: #E8F5E9;
+  min-height: 100vh;
+}
+
+:deep(.v-col) {
+  padding-bottom: 32px;
 }
 </style>
