@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePrincipal from '../views/HomePrincipal.vue'
 import Blog from '../views/Blog.vue'
 import PontosColeta from '../views/PontosColeta.vue'
+import ColetaSeletiva from '../views/ColetaSeletiva.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,6 +17,11 @@ const router = createRouter({
             path: '/blog',
             name: 'blog',
             component: Blog
+        },
+        {
+            path: '/coleta-seletiva',
+            name: 'coleta-seletiva',
+            component: ColetaSeletiva
         },
         {
             path: '/pontos-coleta',

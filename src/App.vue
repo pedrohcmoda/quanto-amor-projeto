@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar flat color="#E8F5E9" height="80">
       <v-container class="d-flex align-center px-6">
-        <v-toolbar-title class="text-uppercase font-weight-medium">Quanto Amor Website</v-toolbar-title>
+        <v-btn variant="text" to="/" class="text-uppercase">Quanto Amor Você Tem Para Dar?</v-btn>
         <v-spacer></v-spacer>
         <div class="d-flex align-center">
           <v-btn variant="text" to="/coleta-seletiva" class="text-uppercase">Coleta Seletiva</v-btn>
