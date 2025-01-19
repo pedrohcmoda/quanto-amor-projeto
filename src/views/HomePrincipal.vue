@@ -56,7 +56,7 @@
           src="/images/gaia_segurando_terra.png"
           max-width="200"
           contain
-        ></v-img>
+        />
       </v-col>
       <v-col cols="12" md="8" class="d-flex align-center">
         <p class="text-body-1 roboto">

@@ -20,6 +20,7 @@
     "vue": "^3.2.13",
     "vue-parallax-js": "^0.2.3",
     "vue-router": "^4.5.0",
+    "vue-the-mask": "^0.11.1",
     "vuetify": "^3.0.0-beta.0",
     "webfontloader": "^1.0.0"
   },

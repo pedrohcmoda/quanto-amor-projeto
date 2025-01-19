@@ -1,7 +1,7 @@
 <template>
     <v-card class="blog-card" height="400">
       <v-img
-        src="../../public/images/planeta_cidade.png"
+        src="/images/planeta_cidade.png"
         class="grey lighten-2"
         height="400"
         cover
