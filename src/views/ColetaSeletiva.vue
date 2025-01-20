@@ -1,9 +1,10 @@
 <template>
   <v-container fluid class="pa-0">
-    <BairrosGrid />
+
     <div class="bg-background pa-16">
       <cep-busca />
     </div>
+    <BairrosGrid />
   </v-container>
 </template>
 
