@@ -2,13 +2,18 @@
   <v-app>
     <v-app-bar flat color="#E8F5E9" height="80">
       <v-container class="d-flex align-center px-6">
-        <v-btn variant="text" to="/" class="text-uppercase">Quanto Amor Você Tem Para Dar?</v-btn>
+        <v-btn variant="text" to="/" class="text-uppercase text-primary font-weight-bold mx-3"
+          aria-label="Página Inicial">
+          Quanto Amor Você Tem Para Dar?
+        </v-btn>
+
         <v-spacer></v-spacer>
+
         <div class="d-flex align-center">
-          <v-btn variant="text" to="/coleta-seletiva" class="text-uppercase">Coleta Seletiva</v-btn>
-          <v-btn variant="text" to="/pontos-coleta" class="text-uppercase">Pontos de Coleta</v-btn>
-          <v-btn variant="text" to="/blog" class="text-uppercase">Blog</v-btn>
-          <v-img src="/images/logo.png" max-width="50" class="ml-4"></v-img>
+          <v-btn variant="text" to="/coleta-seletiva" class="text-uppercase mx-2">Coleta Seletiva</v-btn>
+          <v-btn variant="text" to="/pontos-coleta" class="text-uppercase mx-2">Pontos de Coleta</v-btn>
+          <v-btn variant="text" to="/blog" class="text-uppercase mx-2">Blog</v-btn>
+          <v-img src="/images/logo.png" max-width="50" class="ml-6"></v-img>
         </div>
       </v-container>
     </v-app-bar>
@@ -16,25 +21,39 @@
     <v-main>
       <router-view></router-view>
     </v-main>
-    
+
     <v-footer class="bg-background">
       <v-container>
-        <v-row>
-          <v-col cols="3">
-            <v-img src="/images/quantoamor_logo_1.png" max-width="250" class="ml-5"></v-img>
+        <v-row justify="center">
+          <v-col cols="12" md="3" class="d-flex justify-center">
+            <v-img src="/images/quantoamor_logo_1.png" max-width="200"></v-img>
           </v-col>
-          <v-col cols="4">
-            <h3>Como nos encontrar</h3>
-            <v-list>
-              <v-list-item prepend-icon="mdi-instagram">Instagram</v-list-item>
-              <v-list-item prepend-icon="mdi-email">Email</v-list-item>
-              <v-list-item prepend-icon="mdi-map-marker">Visite os coletores</v-list-item>
+
+          <v-col cols="12" md="4">
+            <h3 class="text-h6 font-weight-bold">Como nos encontrar</h3>
+            <v-list dense>
+              <v-list-item>
+                <v-icon class="mr-2">mdi-instagram</v-icon>
+                <span>Instagram</span>
+              </v-list-item>
+              <v-list-item>
+                <v-icon class="mr-2">mdi-email</v-icon>
+                <span>Email</span>
+              </v-list-item>
+              <v-list-item>
+                <v-icon class="mr-2">mdi-map-marker</v-icon>
+                <span>Visite os coletores</span>
+              </v-list-item>
             </v-list>
           </v-col>
-          <v-col cols="5">
-            <h3>Área Restrita</h3>
-            <v-text-field label="Nome do Usuário" variant="outlined" density="compact"></v-text-field>
-            <v-text-field label="Senha" type="password" variant="outlined" density="compact"></v-text-field>
+
+          <!-- Área Restrita -->
+          <v-col cols="12" md="5">
+            <h3 class="text-h6 font-weight-bold">Área Restrita</h3>
+            <v-text-field label="Nome do Usuário" variant="outlined" density="compact" class="mt-2"></v-text-field>
+            <v-text-field label="Senha" type="password" variant="outlined" density="compact"
+              class="mt-2"></v-text-field>
+            <v-btn color="success" class="mt-3" block>Entrar</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -50,8 +69,19 @@ export default {
   components: {
     HomePrincipal,
   },
-  data: () => ({
-    //
-  }),
 }
 </script>
+
+<style scoped>
+:root {
+  --bg-light: #E8F5E9;
+}
+
+.bg-background {
+  background-color: var(--bg-light);
+}
+
+.text-primary {
+  color: #2E7D32 !important;
+}
+</style>
