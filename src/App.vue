@@ -33,16 +33,22 @@
             <h3 class="text-h6 font-weight-bold">Como nos encontrar</h3>
             <v-list dense>
               <v-list-item>
-                <v-icon class="mr-2">mdi-instagram</v-icon>
-                <span>Instagram</span>
+                <a href="https://www.instagram.com/quantoamorvocetemparadar/" target="_blank" class="icon-link">
+                  <v-icon class="mr-2">mdi-instagram</v-icon>
+                  <span>Instagram</span>
+                </a>
               </v-list-item>
               <v-list-item>
-                <v-icon class="mr-2">mdi-email</v-icon>
-                <span>Email</span>
+                <a href="mailto:quantoamorvocetemparadar@gmail.com" class="icon-link">
+                  <v-icon class="mr-2">mdi-email</v-icon>
+                  <span>Email</span>
+                </a>
               </v-list-item>
               <v-list-item>
-                <v-icon class="mr-2">mdi-map-marker</v-icon>
-                <span>Visite os coletores</span>
+                <a href="/pontos-coleta" class="icon-link">
+                  <v-icon class="mr-2">mdi-map-marker</v-icon>
+                  <span>Visite os coletores ????? trocar o link dps</span>
+                </a>
               </v-list-item>
             </v-list>
           </v-col>
@@ -83,5 +89,28 @@ export default {
 
 .text-primary {
   color: #2E7D32 !important;
+}
+
+.icon-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.icon-link span {
+  transition: text-decoration 0.2s ease;
+}
+
+.icon-link:hover span {
+  text-decoration: underline;
+}
+
+.icon-link v-icon {
+  transition: transform 0.2s ease;
+}
+
+.icon-link:hover v-icon {
+  transform: scale(1.1);
 }
 </style>

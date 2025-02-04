@@ -2,32 +2,11 @@
     <div class="bairros-grid">
         <h2 class="text-center text-h4 mb-8">BAIRROS DE CORNELIO PROCOPIO</h2>
         <div class="carousel-container">
-            <v-carousel
-                v-model="currentPage"
-                hide-delimiters
-                height="400"
-                :show-arrows="false"
-            >
-                <v-carousel-item
-                    v-for="page in paginatedBairros"
-                    :key="page[0].nome"
-                >
+            <v-carousel v-model="currentPage" hide-delimiters height="400" :show-arrows="false">
+                <v-carousel-item v-for="page in paginatedBairros" :key="page[0].nome">
                     <v-row class="fill-height">
-                        <v-col
-                            v-for="bairro in page"
-                            :key="bairro.nome"
-                            cols="12"
-                            sm="6"
-                            md="4"
-                            lg="3"
-                            class="d-flex"
-                        >
-                            <v-card
-                                flat
-                                class="bairro-card"
-                                width="100%"
-                                height="160"
-                            >
+                        <v-col v-for="bairro in page" :key="bairro.nome" cols="12" sm="6" md="4" lg="3" class="d-flex">
+                            <v-card flat class="bairro-card" width="100%" height="160">
                                 <v-card-title class="text-center pt-6 text-uppercase">
                                     {{ bairro.nome }}
                                 </v-card-title>
@@ -44,14 +23,8 @@
             </v-carousel>
         </div>
         <div class="d-flex justify-center mt-4">
-            <v-btn
-                v-for="n in totalPages"
-                :key="n"
-                :color="currentPage === n-1 ? 'success' : ''"
-                variant="text"
-                class="mx-1"
-                @click="currentPage = n-1"
-            >
+            <v-btn v-for="n in totalPages" :key="n" :color="currentPage === n - 1 ? 'success' : ''" variant="outlined"
+                class="mx-1" @click="currentPage = n - 1">
                 {{ n }}
             </v-btn>
         </div>
@@ -59,104 +32,103 @@
 </template>
 
 <script setup>
-    import { ref, computed } from 'vue'
+import { ref, computed } from 'vue'
 
-    const bairros = [
-    { 
-        nome: 'CENTRO', 
+const bairros = [
+    {
+        nome: 'CENTRO',
         dias: 'SEG    QUI',
         cep: '86300-000',
         tipoColeta: ['Orgânico', 'Reciclável']
     },
-    { 
-        nome: 'JARDIM ESTORIL', 
+    {
+        nome: 'JARDIM ESTORIL',
         dias: 'TER    SEX',
         cep: '86300-010',
         tipoColeta: ['Orgânico', 'Reciclável']
     },
-    { 
-        nome: 'JARDIM PANORAMA', 
+    {
+        nome: 'JARDIM PANORAMA',
         dias: 'QUA    SAB',
         cep: '86300-020',
         tipoColeta: ['Reciclável']
     },
-    { 
-        nome: 'JARDIM PRIMAVERA', 
+    {
+        nome: 'JARDIM PRIMAVERA',
         dias: 'SEG    QUI',
         cep: '86300-030',
         tipoColeta: ['Orgânico', 'Reciclável']
     },
-    { 
-        nome: 'JARDIM PROGRESSO', 
+    {
+        nome: 'JARDIM PROGRESSO',
         dias: 'TER    SEX',
         cep: '86300-040',
         tipoColeta: ['Reciclável']
     },
-    { 
-        nome: 'VILA PARAISO', 
+    {
+        nome: 'VILA PARAISO',
         dias: 'QUA    SAB',
         cep: '86300-050',
         tipoColeta: ['Orgânico']
     },
-    { 
-        nome: 'VILA AMERICA', 
+    {
+        nome: 'VILA AMERICA',
         dias: 'SEG    QUI',
         cep: '86300-060',
         tipoColeta: ['Reciclável']
     },
-    { 
-        nome: 'JARDIM BELA VISTA', 
+    {
+        nome: 'JARDIM BELA VISTA',
         dias: 'TER    SEX',
         cep: '86300-070',
         tipoColeta: ['Orgânico', 'Reciclável']
     },
-    { 
-        nome: 'VILA INDEPENDENCIA', 
+    {
+        nome: 'VILA INDEPENDENCIA',
         dias: 'QUA    SAB',
         cep: '86300-080',
         tipoColeta: ['Reciclável']
     },
-    { 
-        nome: 'VILA SANTA TEREZINHA', 
+    {
+        nome: 'VILA SANTA TEREZINHA',
         dias: 'SEG    QUI',
         cep: '86300-090',
         tipoColeta: ['Orgânico']
     },
-    { 
-        nome: 'JARDIM FIGUEIRA', 
+    {
+        nome: 'JARDIM FIGUEIRA',
         dias: 'TER    SEX',
         cep: '86300-100',
         tipoColeta: ['Reciclável']
     },
-    { 
-        nome: 'VILA SEUGLING', 
+    {
+        nome: 'VILA SEUGLING',
         dias: 'QUA    SAB',
         cep: '86300-110',
         tipoColeta: ['Orgânico', 'Reciclável']
     }]
 
-    const currentPage = ref(0)
-    const itemsPerPage = 8
+const currentPage = ref(0)
+const itemsPerPage = 8
 
-    const paginatedBairros = computed(() => {
+const paginatedBairros = computed(() => {
     const pages = []
     for (let i = 0; i < bairros.length; i += itemsPerPage) {
         pages.push(bairros.slice(i, i + itemsPerPage))
     }
     return pages
-    })
+})
 
-    const totalPages = computed(() => Math.ceil(bairros.length / itemsPerPage))
+const totalPages = computed(() => Math.ceil(bairros.length / itemsPerPage))
 
-    const getBairroByCep = (cep) => {
+const getBairroByCep = (cep) => {
     return bairros.find(bairro => bairro.cep === cep)
-    }
+}
 
-    defineExpose({
-        getBairroByCep
-    })
+defineExpose({
+    getBairroByCep
+})
 </script>
-
 
 <style scoped>
 .bairros-grid {
@@ -172,16 +144,18 @@
 }
 
 .bairro-card {
-    background-color: #D3D3D3;
-    transition: transform 0.2s;
-    border-radius: 8px;
+    background-color: #fafafa;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .bairro-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 :deep(.v-carousel) {
@@ -202,18 +176,35 @@
 }
 
 :deep(.v-card-title) {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2E7D32;
     line-height: 1.2;
     padding: 12px;
 }
 
 :deep(.v-card-subtitle) {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     padding-top: 0;
+    color: #616161;
 }
 
 :deep(.v-card-text) {
     padding-top: 0;
     font-size: 1rem;
+    color: #424242;
+}
+
+.v-btn {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2E7D32;
+    border: 2px solid #2E7D32;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.v-btn:hover {
+    background-color: #2E7D32;
+    color: white;
 }
 </style>

@@ -1,37 +1,59 @@
 <template>
-    <v-card class="ponto-card" elevation="0">
-      <v-card-title class="text-uppercase text-center">{{ ponto.tipo }}</v-card-title>
-      <v-card-subtitle class="text-uppercase text-center">{{ ponto.local }}</v-card-subtitle>
-      <v-card-text class="text-center">
-        {{ ponto.endereco }}
-        <br>
-        {{ ponto.cidade }} - {{ ponto.cep }}
-      </v-card-text>
-      <v-card-actions class="justify-center pb-4">
-        <v-btn
-          color="success"
-          variant="flat"
-          rounded="pill"
-          class="px-8"
-        >
-          VER NO MAPA
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </template>
-  
-  <script setup>
-  defineProps({
-    ponto: {
-      type: Object,
-      required: true
-    }
-  })
-  </script>
-  
-  <style scoped>
-  .ponto-card {
-    background-color: #D3D3D3;
-    border-radius: 8px;
+  <v-card class="ponto-card" elevation="0">
+    <v-card-title class="text-uppercase text-center">{{ ponto.tipo }}</v-card-title>
+    <v-card-subtitle class="text-uppercase text-center">{{ ponto.local }}</v-card-subtitle>
+    <v-card-text class="text-center">
+      <div class="ponto-endereco">
+        <div>{{ ponto.endereco }}</div>
+        <div>{{ ponto.cidade }} - {{ ponto.cep }}</div>
+      </div>
+    </v-card-text>
+    <v-card-actions class="justify-center pb-4">
+      <v-btn color="success" variant="flat" rounded="pill" class="px-8">
+        VER NO MAPA
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
+
+<script setup>
+defineProps({
+  ponto: {
+    type: Object,
+    required: true
   }
-  </style>
+})
+</script>
+
+<style scoped>
+.ponto-card {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ponto-card .v-card-title,
+.ponto-card .v-card-subtitle {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.ponto-endereco {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ponto-endereco div {
+  margin: 4px 0;
+}
+
+.v-btn {
+  transition: background-color 0.2s ease;
+}
+
+.v-btn:hover {
+  background-color: #388e3c;
+}
+</style>
