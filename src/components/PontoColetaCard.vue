@@ -1,11 +1,10 @@
 <template>
   <v-card class="ponto-card" elevation="0">
-    <v-card-title class="text-uppercase text-center">{{ ponto.tipo }}</v-card-title>
-    <v-card-subtitle class="text-uppercase text-center">{{ ponto.local }}</v-card-subtitle>
+    <v-card-title class="text-uppercase text-center">{{ ponto.categoria }}</v-card-title>
+    <v-card-subtitle class="text-uppercase text-center">{{ ponto.nome }}</v-card-subtitle>
     <v-card-text class="text-center">
       <div class="ponto-endereco">
         <div>{{ ponto.endereco }}</div>
-        <div>{{ ponto.cidade }} - {{ ponto.cep }}</div>
       </div>
     </v-card-text>
     <v-card-actions class="justify-center pb-4">

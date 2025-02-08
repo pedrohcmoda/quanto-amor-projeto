@@ -6,7 +6,7 @@
       <v-row class="px-16">
         <v-col 
           v-for="ponto in pontosColeta" 
-          :key="ponto.tipo"
+          :key="ponto.categoria"
           cols="12"
           sm="6"
           md="4"
@@ -24,40 +24,22 @@
   </template>
   
   <script setup>
-  import PontoColetaCard from '@/components/PontoColetaCard.vue'
-  import CepBusca from '@/components/CepBusca.vue'
+  import { ref, onMounted } from 'vue';
+  import { db } from '@/db/firebaseConfig';
+  import { collection, getDocs } from 'firebase/firestore';
+  import PontoColetaCard from '@/components/PontoColetaCard.vue';
+  import CepBusca from '@/components/CepBusca.vue';
   
-  const pontosColeta = [
-    {
-      tipo: 'ELETRONICO',
-      local: 'COOPERATIVA RECICLATECH',
-      endereco: 'RUA DOS COMPUTADORES, 123',
-      cidade: 'CORNELIO PROCOPIO - PR',
-      cep: '86300-000'
-    },
-    {
-      tipo: 'PILHAS E BATERIAS',
-      local: 'DROGARIA FARMABEM',
-      endereco: 'AV. PRINCIPAL, 456 - CENTRO',
-      cidade: 'CORNELIO PROCOPIO - PR',
-      cep: '86300-000'
-    },
-    {
-      tipo: 'VIDRO',
-      local: 'PRAÇA DA RECICLAGEM',
-      endereco: 'RUA DA SUSTENTABILIDADE, 789',
-      cidade: 'CORNELIO PROCOPIO - PR',
-      cep: '86300-000'
-    },
-    {
-      tipo: 'ÓLEO DE COZINHA',
-      local: 'SUPERMERCADO ECOMERCADO',
-      endereco: 'RUA VERDE, 1011 - VILA VERDE',
-      cidade: 'CORNELIO PROCOPIO - PR',
-      cep: '86300-000'
-    },
-    // Duplicar os mesmos pontos para completar a grid
-  ]
+  console.log("TESTEEE1");
+  const pontosColeta = ref([]);
+  onMounted(async () => {
+    console.log("TESTEEE2");
+    const querySnapshot = await getDocs(collection(db, 'pontosColeta'));
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+    })
+    pontosColeta.value = querySnapshot.docs.map(doc => doc.data());
+  });
   </script>
   
   <style scoped>
