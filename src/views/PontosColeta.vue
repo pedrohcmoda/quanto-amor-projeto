@@ -29,15 +29,10 @@
   import { collection, getDocs } from 'firebase/firestore';
   import PontoColetaCard from '@/components/PontoColetaCard.vue';
   import CepBusca from '@/components/CepBusca.vue';
-  
-  console.log("TESTEEE1");
+
   const pontosColeta = ref([]);
   onMounted(async () => {
-    console.log("TESTEEE2");
     const querySnapshot = await getDocs(collection(db, 'pontosColeta'));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-    })
     pontosColeta.value = querySnapshot.docs.map(doc => doc.data());
   });
   </script>

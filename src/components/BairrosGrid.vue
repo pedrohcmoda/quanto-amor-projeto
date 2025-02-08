@@ -32,102 +32,36 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue';
+import { db } from '@/db/firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
 
-const bairros = [
-    {
-        nome: 'CENTRO',
-        dias: 'SEG    QUI',
-        cep: '86300-000',
-        tipoColeta: ['Orgânico', 'Reciclável']
-    },
-    {
-        nome: 'JARDIM ESTORIL',
-        dias: 'TER    SEX',
-        cep: '86300-010',
-        tipoColeta: ['Orgânico', 'Reciclável']
-    },
-    {
-        nome: 'JARDIM PANORAMA',
-        dias: 'QUA    SAB',
-        cep: '86300-020',
-        tipoColeta: ['Reciclável']
-    },
-    {
-        nome: 'JARDIM PRIMAVERA',
-        dias: 'SEG    QUI',
-        cep: '86300-030',
-        tipoColeta: ['Orgânico', 'Reciclável']
-    },
-    {
-        nome: 'JARDIM PROGRESSO',
-        dias: 'TER    SEX',
-        cep: '86300-040',
-        tipoColeta: ['Reciclável']
-    },
-    {
-        nome: 'VILA PARAISO',
-        dias: 'QUA    SAB',
-        cep: '86300-050',
-        tipoColeta: ['Orgânico']
-    },
-    {
-        nome: 'VILA AMERICA',
-        dias: 'SEG    QUI',
-        cep: '86300-060',
-        tipoColeta: ['Reciclável']
-    },
-    {
-        nome: 'JARDIM BELA VISTA',
-        dias: 'TER    SEX',
-        cep: '86300-070',
-        tipoColeta: ['Orgânico', 'Reciclável']
-    },
-    {
-        nome: 'VILA INDEPENDENCIA',
-        dias: 'QUA    SAB',
-        cep: '86300-080',
-        tipoColeta: ['Reciclável']
-    },
-    {
-        nome: 'VILA SANTA TEREZINHA',
-        dias: 'SEG    QUI',
-        cep: '86300-090',
-        tipoColeta: ['Orgânico']
-    },
-    {
-        nome: 'JARDIM FIGUEIRA',
-        dias: 'TER    SEX',
-        cep: '86300-100',
-        tipoColeta: ['Reciclável']
-    },
-    {
-        nome: 'VILA SEUGLING',
-        dias: 'QUA    SAB',
-        cep: '86300-110',
-        tipoColeta: ['Orgânico', 'Reciclável']
-    }]
+const bairros = ref([]);
+onMounted(async () => {
+    const querySnapshot = await getDocs(collection(db, 'bairros'));
+    bairros.value = querySnapshot.docs.map(doc => doc.data());
+});
 
-const currentPage = ref(0)
-const itemsPerPage = 8
+const currentPage = ref(0);
+const itemsPerPage = 8;
 
 const paginatedBairros = computed(() => {
-    const pages = []
-    for (let i = 0; i < bairros.length; i += itemsPerPage) {
-        pages.push(bairros.slice(i, i + itemsPerPage))
+    const pages = [];
+    for (let i = 0; i < bairros.value.length; i += itemsPerPage) {
+        pages.push(bairros.value.slice(i, i + itemsPerPage));
     }
-    return pages
-})
+    return pages;
+});
 
-const totalPages = computed(() => Math.ceil(bairros.length / itemsPerPage))
+const totalPages = computed(() => Math.ceil(bairros.value.length / itemsPerPage));
 
 const getBairroByCep = (cep) => {
-    return bairros.find(bairro => bairro.cep === cep)
-}
+    return bairros.value.find(bairro => bairro.cep === cep);
+};
 
 defineExpose({
     getBairroByCep
-})
+});
 </script>
 
 <style scoped>
