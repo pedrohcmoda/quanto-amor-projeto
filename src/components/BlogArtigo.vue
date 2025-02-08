@@ -3,10 +3,10 @@
     <v-img :src="article.image" class="grey lighten-2" height="500" cover>
       <div class="article-overlay">
         <v-card-title class="text-h5 text-white roboto text-truncate">
-          {{ article.title }}
+          {{ article.titulo }}
         </v-card-title>
         <v-card-subtitle class="text-white pb-0 pt-2">
-          {{ article.date }}
+          {{ article.data }}
         </v-card-subtitle>
       </div>
     </v-img>
