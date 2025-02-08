@@ -8,7 +8,7 @@
       </div>
     </v-card-text>
     <v-card-actions class="justify-center pb-4">
-      <v-btn color="success" variant="flat" rounded="pill" class="px-8">
+      <v-btn color="success" variant="flat" rounded="pill" class="px-8" @click="navigateToLocation(ponto.localizacao)">
         VER NO MAPA
       </v-btn>
     </v-card-actions>
@@ -22,6 +22,10 @@ defineProps({
     required: true
   }
 })
+
+const navigateToLocation = (url) => {
+  window.open(url, '_blank');
+};
 </script>
 
 <style scoped>
@@ -54,5 +58,14 @@ defineProps({
 
 .v-btn:hover {
   background-color: #388e3c;
+}
+a {
+  text-decoration: none;
+  color: #1976d2;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 </style>
