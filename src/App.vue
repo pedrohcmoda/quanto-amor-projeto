@@ -89,12 +89,16 @@ export default {
       const usuariosRef = collection(db, "usuarios");
       const q = query(usuariosRef, where("nome", "==", username), where("senha", "==", password));
       const querySnapshot = await getDocs(q);
-
+    
       if (!querySnapshot.empty) {
         this.$router.push('/admin');
       } else {
         alert('Credenciais inválidas');
       }
+    
+      // Reset form data
+      this.username = '';
+      this.password = '';
     }
   }
 }
