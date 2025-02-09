@@ -56,10 +56,9 @@
           <!-- Área Restrita -->
           <v-col cols="12" md="5">
             <h3 class="text-h6 font-weight-bold">Área Restrita</h3>
-            <v-text-field label="Nome do Usuário" variant="outlined" density="compact" class="mt-2"></v-text-field>
-            <v-text-field label="Senha" type="password" variant="outlined" density="compact"
-              class="mt-2"></v-text-field>
-            <v-btn color="success" class="mt-3" block>Entrar</v-btn>
+            <v-text-field label="Nome do Usuário" variant="outlined" density="compact" class="mt-2" v-model="username"></v-text-field>
+            <v-text-field label="Senha" type="password" variant="outlined" density="compact" class="mt-2" v-model="password"></v-text-field>
+            <v-btn color="success" class="mt-3" block @click="handleLogin">Entrar</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -69,12 +68,35 @@
 
 <script>
 import HomePrincipal from './views/HomePrincipal.vue'
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from '@/db/firebaseConfig';
 
 export default {
   name: 'App',
   components: {
     HomePrincipal,
   },
+  data() {
+    return {
+      username: '',
+      password: ''
+    };
+  },
+  methods: {
+    async handleLogin() {
+      const username = this.username;
+      const password = this.password;
+      const usuariosRef = collection(db, "usuarios");
+      const q = query(usuariosRef, where("nome", "==", username), where("senha", "==", password));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        this.$router.push('/admin');
+      } else {
+        alert('Credenciais inválidas');
+      }
+    }
+  }
 }
 </script>
 

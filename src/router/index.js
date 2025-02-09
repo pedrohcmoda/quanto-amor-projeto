@@ -4,6 +4,7 @@ import HomePrincipal from '../views/HomePrincipal.vue'
 import Blog from '../views/Blog.vue'
 import PontosColeta from '../views/PontosColeta.vue'
 import ColetaSeletiva from '../views/ColetaSeletiva.vue'
+import Admin from '@/views/Admin.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,7 +28,12 @@ const router = createRouter({
             path: '/pontos-coleta',
             name: 'pontos-coleta',
             component: PontosColeta
-        }
+        },
+        {
+            path: '/admin',
+            name: 'admin',
+            component: Admin
+        },
     ]
 })
 
