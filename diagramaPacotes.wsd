@@ -1,0 +1,41 @@
+@startuml
+title Diagrama de Pacotes
+
+package "src" {
+    package "assets" {
+        [logo.svg]
+    }
+
+    package "components" {
+        [BairrosGrid.vue]
+        [BairrosManagement.vue]
+        [BlogArtigo.vue]
+        [CepBusca.vue]
+        [PontoColetaCard.vue]
+        [PontosColetaManagement.vue]
+        [PostsManagement.vue]
+    }
+
+    package "db" {
+        [firebaseConfig.js]
+    }
+
+    package "plugins" {
+        [vuetify.js]
+        [webfontloader.js]
+    }
+
+    package "router" {
+        [index.js]
+    }
+
+    package "views" {
+        [Admin.vue]
+        [Blog.vue]
+        [ColetaSeletiva.vue]
+        [HomePrincipal.vue]
+        [PontosColeta.vue]
+    }
+}
+
+@enduml

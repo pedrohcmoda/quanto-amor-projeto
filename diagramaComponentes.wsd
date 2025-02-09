@@ -1,0 +1,12 @@
+@startuml
+title Diagrama de Componentes
+
+package "src" {
+    [App.vue] --> [HomePrincipal.vue]
+    [App.vue] --> [Blog.vue]
+    [App.vue] --> [PontosColeta.vue]
+    [App.vue] --> [ColetaSeletiva.vue]
+    [App.vue] --> [Admin.vue]
+}
+
+@enduml
