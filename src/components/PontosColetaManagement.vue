@@ -12,7 +12,7 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Novo Ponto de Coleta</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" @click="editItem()">Novo Ponto de Coleta</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -74,7 +74,6 @@ const headers = [
   { text: 'Categoria', value: 'categoria' },
   { text: 'Endereço', value: 'endereco' },
   { text: 'Localização', value: 'localizacao' },
-  { text: 'Nome', value: 'nome' },
   { text: 'Ações', value: 'actions', sortable: false }
 ];
 

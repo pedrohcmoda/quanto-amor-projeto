@@ -12,7 +12,7 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Novo Post</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" @click="editItem()" v-on="on">Novo Post</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -94,6 +94,7 @@ onMounted(async () => {
   const querySnapshot = await getDocs(collection(db, 'posts'));
   posts.value = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 });
+
 
 const editItem = (item) => {
   editedIndex.value = posts.value.indexOf(item);
