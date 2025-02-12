@@ -33,6 +33,12 @@
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field v-model="editedItem.nome" label="Nome"></v-text-field>
                     </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="editedItem.latitude" label="Latitude (opcional, para exibição no mapa)" type="number"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="editedItem.longitude" label="Longitude (opcional, para exibição no mapa)" type="number"></v-text-field>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -86,13 +92,17 @@ const editedItem = ref({
   categoria: '',
   endereco: '',
   localizacao: '',
-  nome: ''
+  nome: '',
+  latitude: '',
+  longitude: ''
 });
 const defaultItem = ref({
   categoria: '',
   endereco: '',
   localizacao: '',
-  nome: ''
+  nome: '',
+  latitude: '',
+  longitude: ''
 });
 
 const formTitle = ref('Novo Ponto de Coleta');

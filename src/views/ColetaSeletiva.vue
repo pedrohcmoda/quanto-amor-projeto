@@ -3,7 +3,6 @@
     <div class="bg-background pa-16">
       <cep-busca />
     </div>
-    <Mapa />
     <BairrosGrid />
   </v-container>
 </template>

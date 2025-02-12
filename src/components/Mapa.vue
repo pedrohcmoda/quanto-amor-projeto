@@ -2,43 +2,64 @@
     <div class="map-wrapper">
       <div ref="mapContainer" class="map-container"></div>
     </div>
-  </template>
+</template>
   
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import mapboxgl from 'mapbox-gl';
-  
-  mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_TOKEN;
-  
-  const mapContainer = ref(null);
-  const coordinates = [
-    { lng: -50.648500, lat: -23.179800, label: "Centro" },
-    { lng: -50.645200, lat: -23.183000, label: "UENP" },
-    { lng: -50.651700, lat: -23.176500, label: "Vila Nova" },
-    { lng: -50.644300, lat: -23.181700, label: "Rodoviária" },
-    { lng: -50.653800, lat: -23.175200, label: "Estádio Ubirajara Medeiros" },
-  ];
-  
-  onMounted(() => {
-    const map = new mapboxgl.Map({
+<script setup>
+import { ref, onMounted } from 'vue'
+import { getDocs, collection } from 'firebase/firestore'
+import { db } from '@/db/firebaseConfig'
+import mapboxgl from 'mapbox-gl'
+
+mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
+
+const map = ref(null)
+const mapContainer = ref(null)
+const pontosColeta = ref([])
+
+const centralizarMapa = (lng, lat, label) => {
+  if (map.value) {
+    map.value.flyTo({ center: [lng, lat], zoom: 16 })
+    new mapboxgl.Popup()
+      .setLngLat([lng, lat])
+      .setText(label)
+      .addTo(map.value)
+  }
+}
+
+defineExpose({ centralizarMapa })
+
+onMounted(async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'pontosColeta'))
+    pontosColeta.value = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      lng: doc.data().longitude,
+      lat: doc.data().latitude,
+      label: `${doc.data().nome} (${doc.data().categoria})`
+    }))
+
+    map.value = new mapboxgl.Map({
       container: mapContainer.value,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapscoleta/cm71cfb27004001qu5uss9ujv',
       center: [-50.647644, -23.179245],
-      zoom: 14,
-    });
-  
-    coordinates.forEach(({ lng, lat, label }) => {
+      zoom: 14
+    })
+
+    pontosColeta.value.forEach(({ lng, lat, label }) => {
       new mapboxgl.Marker()
         .setLngLat([lng, lat])
         .setPopup(new mapboxgl.Popup().setText(label))
-        .addTo(map);
-    });
+        .addTo(map.value)
+    })
+
+    map.value.resize()
+  } catch (error) {
+    console.error('Erro ao carregar pontos de coleta:', error)
+  }
+})
+</script>
   
-    map.resize();
-  });
-  </script>
-  
-  <style scoped>
+<style scoped>
   .map-wrapper {
     position: relative;
     width: 100%;
@@ -53,5 +74,4 @@
     height: 100%;
     border-radius: 8px;
   }
-  </style>
-  
+</style>

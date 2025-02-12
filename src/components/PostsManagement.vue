@@ -104,7 +104,7 @@ const registrarAuditoria = async (acao, item) => {
   await addDoc(collection(db, 'auditoria'), {
     acao,
     item: item.nome,
-    usuario: user.email,
+    usuario: user,
     dataHora: new Date().toISOString()
   });
 };

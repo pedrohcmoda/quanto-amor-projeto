@@ -8,7 +8,7 @@
       </div>
     </v-card-text>
     <v-card-actions class="justify-center pb-4">
-      <v-btn color="success" variant="flat" rounded="pill" class="px-8" @click="navigateToLocation(ponto.localizacao)">
+      <v-btn color="success" variant="flat" rounded="pill" class="px-8" @click="verNoMapa">
         VER NO MAPA
       </v-btn>
     </v-card-actions>
@@ -16,17 +16,25 @@
 </template>
 
 <script setup>
-defineProps({
+import { inject } from 'vue';
+
+const props = defineProps({
   ponto: {
     type: Object,
     required: true
   }
-})
+});
 
-const navigateToLocation = (url) => {
-  window.open(url, '_blank');
+const mapaRef = inject('mapaRef');
+
+const verNoMapa = () => {
+  if (mapaRef?.value && props.ponto) {
+    const nome = props.ponto.nome + " (" + props.ponto.categoria + ")";
+    mapaRef.value.centralizarMapa(props.ponto.longitude, props.ponto.latitude, nome);
+  }
 };
 </script>
+
 
 <style scoped>
 .ponto-card {
