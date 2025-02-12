@@ -8,7 +8,7 @@
           <v-text-field v-model="searchCategoria" label="Buscar por Categoria" outlined dense />
         </v-col>
         <v-col cols="12" md="6">
-          <v-text-field v-model="searchLocalizacao" label="Buscar por Localização" outlined dense />
+          <v-text-field v-model="searchEndereco" label="Buscar por Endereço" outlined dense />
         </v-col>
       </v-row>
     </div>
@@ -22,7 +22,7 @@
             {{ ponto.categoria }}
           </v-card-title>
           <v-card-subtitle class="text-center text-body-2">
-            LOCALIZAÇÃO
+            {{ ponto.endereco }}
           </v-card-subtitle>
           <v-card-actions class="d-flex justify-center">
             <v-btn color="primary" @click="verNoMapa(ponto)">
@@ -53,7 +53,7 @@ const currentPage = ref(0);
 const itemsPerPage = 8;
 
 const searchCategoria = ref("");
-const searchLocalizacao = ref("");
+const searchEndereco = ref("");
 
 const mapaRef = ref(null);
 
@@ -70,10 +70,10 @@ const filteredPontos = computed(() => {
     const matchesCategoria = ponto.categoria
       .toLowerCase()
       .includes(searchCategoria.value.toLowerCase());
-    const matchesLocalizacao = ponto.localizacao
+    const matchesEndereco = ponto.endereco
       .toLowerCase()
-      .includes(searchLocalizacao.value.toLowerCase());
-    return matchesCategoria && matchesLocalizacao;
+      .includes(searchEndereco.value.toLowerCase());
+    return matchesCategoria && matchesEndereco;
   });
 });
 
