@@ -1,6 +1,5 @@
 <template>
   <v-container fluid class="pa-0">
-    <!-- Seção Hero -->
     <v-row no-gutters class="hero-section pa-md-16 pa-6">
       <v-col cols="12" md="6" class="d-flex flex-column justify-center">
         <h1 class="text-h2 font-weight-bold">
@@ -32,14 +31,12 @@
       </v-col>
     </v-row>
 
-    <!-- Parallax -->
     <v-parallax src="/images/floresta_parallax.png" class="parallax-section">
       <div class="parallax-overlay">
         <h2 class="text-white text-h4 font-weight-bold">Junte-se a nós na preservação do meio ambiente</h2>
       </div>
     </v-parallax>
 
-    <!-- Seção Projeto -->
     <v-row no-gutters class="project-section pa-md-16 pa-6">
       <v-col cols="12" md="4" class="d-flex justify-center">
         <v-img src="/images/gaia_segurando_terra.png" max-width="200" />

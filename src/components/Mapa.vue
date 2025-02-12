@@ -1,9 +1,9 @@
 <template>
-    <div class="map-wrapper">
-      <div ref="mapContainer" class="map-container"></div>
-    </div>
+  <div class="map-wrapper">
+    <div ref="mapContainer" class="map-container"></div>
+  </div>
 </template>
-  
+
 <script setup>
 import { ref, onMounted } from 'vue'
 import { getDocs, collection } from 'firebase/firestore'
@@ -58,20 +58,21 @@ onMounted(async () => {
   }
 })
 </script>
-  
+
 <style scoped>
-  .map-wrapper {
-    position: relative;
-    width: 100%;
-    height: 400px;
-  }
-  
-  .map-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-  }
+.map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.map-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+}
 </style>

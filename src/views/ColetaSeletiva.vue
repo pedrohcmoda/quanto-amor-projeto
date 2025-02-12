@@ -1,14 +1,15 @@
 <template>
-  <v-container fluid class="pa-0">
-    <div class="bg-background pa-16">
-      <cep-busca />
-    </div>
+  <v-container fluid class="pa-0 containerColeta">
     <BairrosGrid />
   </v-container>
 </template>
 
 <script setup>
-import CepBusca from '@/components/CepBusca.vue';
 import BairrosGrid from '@/components/BairrosGrid.vue';
-import Mapa from '@/components/Mapa.vue';
 </script>
+
+<style scoped>
+.containerColeta {
+  padding: 0 50px;
+}
+</style>

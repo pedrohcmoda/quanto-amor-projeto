@@ -1,10 +1,6 @@
 <template>
   <v-container>
-    <v-data-table
-      :headers="headers"
-      :items="pontosColeta"
-      class="elevation-1"
-    >
+    <v-data-table :headers="headers" :items="pontosColeta" class="elevation-1">
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Gerenciar Pontos de Coleta</v-toolbar-title>
@@ -12,7 +8,8 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" @click="editItem()">Novo Ponto de Coleta</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" @click="editItem()">Novo Ponto de
+                Coleta</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -34,10 +31,12 @@
                       <v-text-field v-model="editedItem.nome" label="Nome"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.latitude" label="Latitude (opcional, para exibição no mapa)" type="number"></v-text-field>
+                      <v-text-field v-model="editedItem.latitude" label="Latitude (opcional, para exibição no mapa)"
+                        type="number"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.longitude" label="Longitude (opcional, para exibição no mapa)" type="number"></v-text-field>
+                      <v-text-field v-model="editedItem.longitude" label="Longitude (opcional, para exibição no mapa)"
+                        type="number"></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -173,5 +172,4 @@ const save = async () => {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

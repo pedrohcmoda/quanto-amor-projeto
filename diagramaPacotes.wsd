@@ -10,7 +10,6 @@ package "src" {
         [BairrosGrid.vue]
         [BairrosManagement.vue]
         [BlogArtigo.vue]
-        [CepBusca.vue]
         [PontoColetaCard.vue]
         [PontosColetaManagement.vue]
         [PostsManagement.vue]

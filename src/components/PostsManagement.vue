@@ -1,10 +1,6 @@
 <template>
   <v-container>
-    <v-data-table
-      :headers="headers"
-      :items="posts"
-      class="elevation-1"
-    >
+    <v-data-table :headers="headers" :items="posts" class="elevation-1">
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Gerenciar Posts</v-toolbar-title>
@@ -158,5 +154,4 @@ const save = async () => {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

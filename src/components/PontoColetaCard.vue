@@ -67,6 +67,7 @@ const verNoMapa = () => {
 .v-btn:hover {
   background-color: #388e3c;
 }
+
 a {
   text-decoration: none;
   color: #1976d2;

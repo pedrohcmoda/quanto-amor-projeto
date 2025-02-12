@@ -28,8 +28,8 @@ import { collection, getDocs } from 'firebase/firestore';
 
 const articles = ref([]);
 onMounted(async () => {
-   const querySnapshot = await getDocs(collection(db, 'posts'));
-   articles.value = querySnapshot.docs.map(doc => doc.data());
+  const querySnapshot = await getDocs(collection(db, 'posts'));
+  articles.value = querySnapshot.docs.map(doc => doc.data());
 });
 
 
