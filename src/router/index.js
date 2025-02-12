@@ -32,9 +32,20 @@ const router = createRouter({
         {
             path: '/admin',
             name: 'admin',
-            component: Admin
+            component: Admin,
+            meta: { requiresAuth: true }
         },
     ]
+})
+
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = firebase.auth().currentUser !== null
+
+    if (to.meta.requiresAuth && !isAuthenticated) {
+        next('/')
+    } else {
+        next()
+    }
 })
 
 export default router
