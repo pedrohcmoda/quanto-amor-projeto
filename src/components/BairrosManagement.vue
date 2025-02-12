@@ -65,7 +65,9 @@
 import { ref, onMounted } from 'vue';
 import { db } from '@/db/firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
+const auth = getAuth();
 const bairros = ref([]);
 const headers = [
   { text: 'Nome', value: 'nome' },
@@ -95,6 +97,18 @@ onMounted(async () => {
   bairros.value = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 });
 
+const registrarAuditoria = async (acao, item) => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  await addDoc(collection(db, 'auditoria'), {
+    acao,
+    item: item.nome,
+    usuario: user.email,
+    dataHora: new Date().toISOString()
+  });
+};
+
 const editItem = (item) => {
   editedIndex.value = bairros.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
@@ -110,6 +124,7 @@ const deleteItem = (item) => {
 const deleteItemConfirm = async () => {
   await deleteDoc(doc(db, 'bairros', editedItem.value.id));
   bairros.value.splice(editedIndex.value, 1);
+  await registrarAuditoria('Exclusão de Bairro', editedItem.value);
   closeDelete();
 };
 
@@ -133,9 +148,11 @@ const save = async () => {
   if (editedIndex.value > -1) {
     await updateDoc(doc(db, 'bairros', editedItem.value.id), editedItem.value);
     Object.assign(bairros.value[editedIndex.value], editedItem.value);
+    await registrarAuditoria('Edição de Bairro', editedItem.value);
   } else {
     const newDoc = await addDoc(collection(db, 'bairros'), editedItem.value);
     bairros.value.push({ id: newDoc.id, ...editedItem.value });
+    await registrarAuditoria('Criação de Bairro', editedItem.value);
   }
   close();
 };

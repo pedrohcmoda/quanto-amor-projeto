@@ -68,7 +68,9 @@
 import { ref, onMounted } from 'vue';
 import { db } from '@/db/firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
+const auth = getAuth();
 const pontosColeta = ref([]);
 const headers = [
   { text: 'Categoria', value: 'categoria' },
@@ -100,6 +102,18 @@ onMounted(async () => {
   pontosColeta.value = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 });
 
+const registrarAuditoria = async (acao, item) => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  await addDoc(collection(db, 'auditoria'), {
+    acao,
+    item: item.nome,
+    usuario: user.email,
+    dataHora: new Date().toISOString()
+  });
+};
+
 const editItem = (item) => {
   editedIndex.value = pontosColeta.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
@@ -115,6 +129,7 @@ const deleteItem = (item) => {
 const deleteItemConfirm = async () => {
   await deleteDoc(doc(db, 'pontosColeta', editedItem.value.id));
   pontosColeta.value.splice(editedIndex.value, 1);
+  await registrarAuditoria('Exclusão de Ponto de Coleta', editedItem.value);
   closeDelete();
 };
 
@@ -138,9 +153,11 @@ const save = async () => {
   if (editedIndex.value > -1) {
     await updateDoc(doc(db, 'pontosColeta', editedItem.value.id), editedItem.value);
     Object.assign(pontosColeta.value[editedIndex.value], editedItem.value);
+    await registrarAuditoria('Edição de Ponto de Coleta', editedItem.value);
   } else {
     const newDoc = await addDoc(collection(db, 'pontosColeta'), editedItem.value);
     pontosColeta.value.push({ id: newDoc.id, ...editedItem.value });
+    await registrarAuditoria('Criação de Ponto de Coleta', editedItem.value);
   }
   close();
 };
