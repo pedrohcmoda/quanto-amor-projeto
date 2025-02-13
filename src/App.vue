@@ -45,9 +45,9 @@
                 </a>
               </v-list-item>
               <v-list-item>
-                <a href="/pontos-coleta" class="icon-link">
+                <a href="https://maps.app.goo.gl/bhVmxxnK9AoTMQn39" target="_blank" class="icon-link">
                   <v-icon class="mr-2">mdi-map-marker</v-icon>
-                  <span>Visite os coletores ????? trocar o link dps</span>
+                  <span>Visite os coletores</span>
                 </a>
               </v-list-item>
             </v-list>
