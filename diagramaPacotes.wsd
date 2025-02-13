@@ -7,10 +7,12 @@ package "src" {
     }
 
     package "components" {
+        [AuditoriaManagement.vue]
         [BairrosGrid.vue]
         [BairrosManagement.vue]
         [BlogArtigo.vue]
-        [PontoColetaCard.vue]
+        [Mapa.vue
+        [PontosColetaGrid.vue]
         [PontosColetaManagement.vue]
         [PostsManagement.vue]
     }

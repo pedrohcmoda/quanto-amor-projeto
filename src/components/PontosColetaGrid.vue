@@ -5,15 +5,15 @@
     <div class="filters mb-6">
       <v-row>
         <v-col cols="12" md="6">
-          <v-text-field v-model="searchCategoria" label="Buscar por Categoria" outlined dense />
+          <v-text-field v-model="searchCategoria" label="Buscar por Categoria" outlined dense/>
         </v-col>
         <v-col cols="12" md="6">
-          <v-text-field v-model="searchEndereco" label="Buscar por Endereço" outlined dense />
+          <v-text-field v-model="searchEndereco" label="Buscar por Endereço" outlined dense/>
         </v-col>
       </v-row>
     </div>
 
-    <Mapa ref="mapaRef" :pontos="filteredPontos" />
+    <Mapa ref="mapaRef" :pontos="filteredPontos"/>
 
     <v-row class="px-16 mt-8">
       <v-col v-for="ponto in paginatedFilteredPontos" :key="ponto.id" cols="12" sm="6" md="4" lg="3">
@@ -35,7 +35,7 @@
 
     <div class="d-flex justify-center mt-4">
       <v-btn v-for="n in totalFilteredPages" :key="n" :color="currentPage === n - 1 ? 'success' : ''" variant="outlined"
-        class="mx-1" @click="currentPage = n - 1">
+             class="mx-1" @click="currentPage = n - 1">
         {{ n }}
       </v-btn>
     </div>
@@ -43,9 +43,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import { db } from "@/db/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import {ref, computed, onMounted} from "vue";
+import {db} from "@/db/firebaseConfig";
+import {collection, getDocs} from "firebase/firestore";
 import Mapa from "@/components/Mapa.vue";
 
 const pontosColeta = ref([]);
@@ -68,11 +68,11 @@ onMounted(async () => {
 const filteredPontos = computed(() => {
   return pontosColeta.value.filter((ponto) => {
     const matchesCategoria = ponto.categoria
-      .toLowerCase()
-      .includes(searchCategoria.value.toLowerCase());
+        .toLowerCase()
+        .includes(searchCategoria.value.toLowerCase());
     const matchesEndereco = ponto.endereco
-      .toLowerCase()
-      .includes(searchEndereco.value.toLowerCase());
+        .toLowerCase()
+        .includes(searchEndereco.value.toLowerCase());
     return matchesCategoria && matchesEndereco;
   });
 });
@@ -86,13 +86,12 @@ const paginatedFilteredPontos = computed(() => {
 });
 
 const totalFilteredPages = computed(() =>
-  Math.ceil(filteredPontos.value.length / itemsPerPage)
+    Math.ceil(filteredPontos.value.length / itemsPerPage)
 );
 
 const verNoMapa = (ponto) => {
   if (mapaRef.value) {
     const label = `${ponto.nome} (${ponto.categoria})`;
-
     mapaRef.value.centralizarMapa(ponto.longitude, ponto.latitude, label);
   }
 };

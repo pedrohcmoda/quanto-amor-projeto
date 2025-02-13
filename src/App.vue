@@ -97,7 +97,6 @@ export default {
         alert('Credenciais inválidas');
       }
 
-      // Reset form data
       this.username = '';
       this.password = '';
     }
