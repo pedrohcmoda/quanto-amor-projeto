@@ -5,7 +5,7 @@
         <v-row>
           <v-col
               v-for="article in paginatedArticles"
-              :key="article.title"
+              :key="article.id"
               cols="12"
               sm="12"
               md="6"
@@ -34,7 +34,7 @@
         <v-card-title>{{ selectedArticle?.titulo }}</v-card-title>
         <v-card-subtitle>{{ selectedArticle?.data }}</v-card-subtitle>
         <v-card-text>
-          <div v-html="selectedArticle?.conteudo"></div>
+          {{ selectedArticle?.conteudo }}
         </v-card-text>
 
         <v-card-actions>
@@ -58,14 +58,10 @@ const selectedArticle = ref(null);
 
 onMounted(async () => {
   const querySnapshot = await getDocs(collection(db, 'posts'));
-  articles.value = querySnapshot.docs.map(doc => {
-    const data = doc.data();
-    return {
-      id: doc.id,
-      ...data,
-      conteudo: data.conteudo ? JSON.parse(data.conteudo) : ''
-    };
-  });
+  articles.value = querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 });
 
 const itemsPerPage = 10;

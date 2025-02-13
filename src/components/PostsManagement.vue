@@ -27,10 +27,16 @@
                       <v-text-field v-model="editedItem.titulo" label="Título"></v-text-field>
                     </v-col>
                   </v-row>
-                  <quill-editor
-                      v-model="editedItem.conteudo"
-                      :options="{ placeholder: 'Escreva seu artigo aqui...', theme: 'snow' }"
-                  />
+                  <v-row>
+                    <v-col cols="12">
+                      <v-textarea
+                          v-model="editedItem.conteudo"
+                          label="Conteúdo"
+                          rows="10"
+                          outlined
+                      ></v-textarea>
+                    </v-col>
+                  </v-row>
                 </v-container>
               </v-card-text>
               <v-card-actions>
@@ -40,6 +46,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="headline">Tem certeza que deseja excluir este item?</v-card-title>
@@ -59,6 +66,7 @@
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
+
     </v-data-table>
   </v-container>
 </template>
@@ -68,8 +76,6 @@ import { ref, onMounted } from 'vue';
 import { db } from '@/db/firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import { QuillEditor } from '@vueup/vue-quill';
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const auth = getAuth();
 const posts = ref([]);
@@ -152,23 +158,16 @@ const closeDelete = () => {
 
 const save = async () => {
   if (editedIndex.value > -1) {
-    await updateDoc(doc(db, 'posts', editedItem.value.id), {
-      ...editedItem.value,
-      conteudo: JSON.stringify(editedItem.value.conteudo)
-    });
+    await updateDoc(doc(db, 'posts', editedItem.value.id), editedItem.value);
     Object.assign(posts.value[editedIndex.value], editedItem.value);
     await registrarAuditoria('Edição de Post', editedItem.value);
   } else {
-    const newDoc = await addDoc(collection(db, 'posts'), {
-      ...editedItem.value,
-      conteudo: JSON.stringify(editedItem.value.conteudo)
-    });
+    const newDoc = await addDoc(collection(db, 'posts'), editedItem.value);
     posts.value.push({ id: newDoc.id, ...editedItem.value });
     await registrarAuditoria('Criação de Post', editedItem.value);
   }
   close();
 };
-
 </script>
 
 <style scoped></style>
