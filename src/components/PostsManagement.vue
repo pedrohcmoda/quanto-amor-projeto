@@ -6,7 +6,7 @@
           <v-toolbar-title>Gerenciar Posts</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="500px">
+          <v-dialog v-model="dialog" max-width="800px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" @click="editItem()" v-on="on">Novo Post</v-btn>
             </template>
@@ -27,6 +27,10 @@
                       <v-text-field v-model="editedItem.titulo" label="Título"></v-text-field>
                     </v-col>
                   </v-row>
+                  <quill-editor
+                      v-model="editedItem.conteudo"
+                      :options="{ placeholder: 'Escreva seu artigo aqui...', theme: 'snow' }"
+                  />
                 </v-container>
               </v-card-text>
               <v-card-actions>
@@ -47,8 +51,10 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
         </v-toolbar>
       </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
@@ -62,6 +68,8 @@ import { ref, onMounted } from 'vue';
 import { db } from '@/db/firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const auth = getAuth();
 const posts = ref([]);
@@ -78,12 +86,14 @@ const editedIndex = ref(-1);
 const editedItem = ref({
   data: '',
   image: '',
-  titulo: ''
+  titulo: '',
+  conteudo: ''
 });
 const defaultItem = ref({
   data: '',
   image: '',
-  titulo: ''
+  titulo: '',
+  conteudo: ''
 });
 
 const formTitle = ref('Novo Post');
@@ -99,8 +109,8 @@ const registrarAuditoria = async (acao, item) => {
 
   await addDoc(collection(db, 'auditoria'), {
     acao,
-    item: item.nome,
-    usuario: user,
+    item: item.titulo,
+    usuario: user.email,
     dataHora: new Date().toISOString()
   });
 };
@@ -142,16 +152,23 @@ const closeDelete = () => {
 
 const save = async () => {
   if (editedIndex.value > -1) {
-    await updateDoc(doc(db, 'posts', editedItem.value.id), editedItem.value);
+    await updateDoc(doc(db, 'posts', editedItem.value.id), {
+      ...editedItem.value,
+      conteudo: JSON.stringify(editedItem.value.conteudo)
+    });
     Object.assign(posts.value[editedIndex.value], editedItem.value);
     await registrarAuditoria('Edição de Post', editedItem.value);
   } else {
-    const newDoc = await addDoc(collection(db, 'posts'), editedItem.value);
+    const newDoc = await addDoc(collection(db, 'posts'), {
+      ...editedItem.value,
+      conteudo: JSON.stringify(editedItem.value.conteudo)
+    });
     posts.value.push({ id: newDoc.id, ...editedItem.value });
     await registrarAuditoria('Criação de Post', editedItem.value);
   }
   close();
 };
+
 </script>
 
 <style scoped></style>

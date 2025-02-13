@@ -57,11 +57,9 @@ onMounted(async () => {
 const currentPage = ref(0);
 const itemsPerPage = 8;
 
-// Campos de busca
 const searchNome = ref('');
 const searchDias = ref('');
 
-// Computed para filtrar bairros com base nos critérios de busca
 const filteredBairros = computed(() => {
     return bairros.value.filter(bairro => {
         const matchesNome = bairro.nome.toLowerCase().includes(searchNome.value.toLowerCase());
@@ -70,7 +68,6 @@ const filteredBairros = computed(() => {
     });
 });
 
-// Paginação dos bairros filtrados
 const paginatedFilteredBairros = computed(() => {
     const pages = [];
     for (let i = 0; i < filteredBairros.value.length; i += itemsPerPage) {
