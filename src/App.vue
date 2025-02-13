@@ -70,6 +70,7 @@
 <script>
 import HomePrincipal from './views/HomePrincipal.vue'
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { db } from '@/db/firebaseConfig';
 
 export default {
@@ -85,18 +86,17 @@ export default {
   },
   methods: {
     async handleLogin() {
-      const username = this.username;
+      const email = this.username;
       const password = this.password;
-      const usuariosRef = collection(db, "usuarios");
-      const q = query(usuariosRef, where("nome", "==", username), where("senha", "==", password));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        this.$router.push('/admin');
-      } else {
-        alert('Credenciais inválidas');
-      }
-
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          this.$router.push('/admin');
+        })
+        .catch((error) => {
+          alert('Erro ao fazer login: ' + error.message);
+        });
+    
       this.username = '';
       this.password = '';
     }

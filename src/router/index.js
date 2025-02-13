@@ -14,7 +14,7 @@ const router = createRouter({
         { path: '/blog', name: 'blog', component: Blog },
         { path: '/coleta-seletiva', name: 'coleta-seletiva', component: ColetaSeletiva },
         { path: '/pontos-coleta', name: 'pontos-coleta', component: PontosColeta },
-        { path: '/admin', name: 'admin', component: Admin, /*meta: { requiresAuth: true } */ },
+        { path: '/admin', name: 'admin', component: Admin, meta: { requiresAuth: true } },
     ]
 })
 
